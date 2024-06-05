@@ -1,0 +1,108 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Car {
+    private String make;
+    private String model;
+    private int year;
+    private boolean available;
+
+    public Car(String make, String model, int year) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.available = true; 
+    }
+
+    public String getMake() {
+        return make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+}
+
+class Customer {
+    private String name;
+    private String licenseNumber;
+
+    public Customer(String name, String licenseNumber) {
+        this.name = name;
+        this.licenseNumber = licenseNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+}
+
+class RentalAgency {
+    private List<Car> cars;
+    private List<Customer> customers;
+
+    public RentalAgency() {
+        cars = new ArrayList<>();
+        customers = new ArrayList<>();
+    }
+
+    public void addCar(Car car) {
+        cars.add(car);
+    }
+
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
+    }
+
+    public void rentCar(Customer customer, Car car) {
+        if (car.isAvailable()) {
+            car.setAvailable(false);
+            System.out.println("Car rented to " + customer.getName());
+        } else {
+            System.out.println("Car not available for rental.");
+        }
+    }
+
+    public void returnCar(Customer customer, Car car) {
+        car.setAvailable(true);
+        System.out.println("Car returned by " + customer.getName());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car car1 = new Car("Toyota", "Camry", 2020);
+        Car car2 = new Car("Honda", "Civic", 2019);
+
+        Customer customer1 = new Customer("John Doe", "ABC123");
+        Customer customer2 = new Customer("Jane Smith", "XYZ456");
+
+        RentalAgency rentalAgency = new RentalAgency();
+        rentalAgency.addCar(car1);
+        rentalAgency.addCar(car2);
+
+        rentalAgency.addCustomer(customer1);
+        rentalAgency.addCustomer(customer2);
+
+        rentalAgency.rentCar(customer1, car1);
+        rentalAgency.returnCar(customer1, car1);
+        rentalAgency.rentCar(customer2, car2);
+        rentalAgency.rentCar(customer1, car2); 
+    }
+}
